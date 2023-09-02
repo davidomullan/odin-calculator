@@ -1,0 +1,129 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-family: Helvetica, Roboto, sans-serif;
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+}
+
+button {
+	border-radius: 10px;
+	background-color: #EEEEEE;
+}
+
+.content {
+	background-color: #053B50;
+	display: flex;
+	flex: 1;
+	align-items: center;
+	justify-content: center;
+}
+
+.case {
+	background-color: #176B87;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	height: 800px;
+	padding: 10px;
+	width: 400px;
+}
+
+.screen {
+	display: flex;
+	flex: 1;
+	flex-wrap: wrap;
+}
+.screen > input {
+	text-align: center;
+	flex: 1;
+	font-size: 30px;
+}
+
+.clear {
+	display: flex;
+	flex: 1;
+	padding: 10px 0;
+}
+.clear-key {
+	background-color: #053B50;
+	color: #EEEEEE;
+	font-size: 40px;
+	flex: 1;
+}
+
+.keys {
+	display: flex;
+	flex: 1;
+	padding: 10px;
+}
+.num-key, .operator {
+	font-size: 40px;
+	height: 70px;
+	width: 70px;
+}
+
+.numpad {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	flex: 3;
+	gap: 10px;
+	justify-content: center;
+}
+.num-key{
+	color: #176B87;
+	padding: 10px;
+	text-align: center;
+}
+
+.operators {
+	padding: 10px 0;
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1;
+	gap: 10px;
+	justify-content: center;
+}
+.operator{
+	background-color: #053B50;
+	color: #64CCC5;
+	padding: 10px;
+	text-align: center;
+}
+
+.enter {
+	display: flex;
+	flex: 1;
+	padding: 10px 0;
+}
+.enter-key{
+	background-color: #053B50;
+	color: #EEEEEE;
+	font-size: 40px;
+	flex: 1;
+}
+
+@media (max-width: 800px) {
+  .case {
+  	height: 500px;
+  	width: 250px;
+  }
+
+  .screen > input {
+  	font-size: 20px;
+  }
+
+  .num-key, .operator {
+  	font-size: 30px;
+  	height: 50px;
+  	width: 50px;
+  }
+}
