@@ -95,6 +95,7 @@ function pressOperatorKey(operatorkey){
 		hasDecimal=false;
 		operator=operatorkey;
 		document.querySelector('#screen-value').innerText='';
+		document.getElementById('screen-value').style.fontSize = '100px';
 	}
 }
 
@@ -125,6 +126,8 @@ function percentage(){
 		operand2 = operate(operand1, '/', operand2);
 		evaluate();
 	}
+
+	checkOverflow();
 }
 
 function changeSign() {
@@ -146,6 +149,8 @@ function changeSign() {
 		}
 		document.querySelector('#screen-value').innerText = operand2;
 	}
+
+	checkOverflow();
 }
 
 function addDecimal() {
@@ -160,6 +165,7 @@ function addDecimal() {
 		}
 		hasDecimal=true;
 	}
+	checkOverflow();
 }
 
 function resetGlobals(){
