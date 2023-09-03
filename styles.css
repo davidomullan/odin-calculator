@@ -127,9 +127,21 @@ button:hover {
   	width: 50px;
   }
 
+  button:active, button:focus {
+  	height: 45px;
+  	width: 45px;
+  	margin: 2.5px;
+  }
+
   #zero-key {
   	height: 50px;
   	width: 110px;
+  }
+
+  #zero-key:active, #zero-key:focus {
+  	height: 45px;
+  	width: 105px;
+  	margin: 2.5px;
   }
 
 }
