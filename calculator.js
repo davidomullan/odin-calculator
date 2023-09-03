@@ -43,6 +43,12 @@ window.addEventListener("load", (event) => {
   		percentage();
   	}
   );
+
+  document.querySelector('.sign-key').addEventListener('click',
+  	function(){
+  		changeSign();
+  	}
+  );
 });
 
 // On key press, add number to screen
@@ -97,6 +103,27 @@ function percentage(){
 	else if(operator){
 		operand2 = operate(operand1, '/', operand2);
 		evaluate();
+	}
+}
+
+function changeSign() {
+	if(on1){
+		if(operand1[0]=='-'){
+			operand1 = operand1.substring(1);
+		}
+		else{
+			operand1 = '-' + operand1;
+		}
+		document.querySelector('#screen-value').innerText = operand1;
+	}
+	else{
+		if(operand2[0]=='-'){
+			operand2=operand2.substring(1);
+		}
+		else{
+			operand2 = '-' + operand2;
+		}
+		document.querySelector('#screen-value').innerText = operand2;
 	}
 }
 
