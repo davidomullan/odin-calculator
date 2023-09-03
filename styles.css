@@ -4,7 +4,8 @@
 }
 
 html {
-	font-family: Helvetica, Roboto, sans-serif;
+	color: #ffffff;
+	font-family: Helvetica, Roboto, Sans-Serif;
 }
 
 body {
@@ -13,12 +14,31 @@ body {
 }
 
 button {
-	border-radius: 10px;
-	background-color: #EEEEEE;
+	color: white;
+	font-size: 40px;
+	align-items: center;
+	background-color: #333333;
+	border-radius: 90px;
+	border: none;
+	display: flex;
+	justify-content: center;
+	height: 90px;
+	width: 90px;
+}
+
+button:active, button:focus {
+	background-color: #727272;
+	height: 85px;
+	width: 85px;
+	margin: 2.5px;
+}
+
+button:hover {
+	filter: brightness(120%);
 }
 
 .content {
-	background-color: #053B50;
+	background-color: #5c5c5c;
 	display: flex;
 	flex: 1;
 	align-items: center;
@@ -26,8 +46,8 @@ button {
 }
 
 .case {
-	background-color: #176B87;
-	border-radius: 10px;
+	background-color: #000000;
+	border-radius: 20px;
 	display: flex;
 	flex-direction: column;
 	height: 800px;
@@ -36,80 +56,56 @@ button {
 }
 
 .screen {
+	align-items: flex-end;
+	justify-content: flex-end;
 	display: flex;
 	flex: 1;
-	flex-wrap: wrap;
+	padding: 10px 20px;
 }
-.screen > input {
-	text-align: center;
-	flex: 1;
-	font-size: 30px;
-}
-
-.clear {
-	display: flex;
-	flex: 1;
-	padding: 10px 0;
-}
-.clear-key {
-	background-color: #053B50;
-	color: #EEEEEE;
-	font-size: 40px;
-	flex: 1;
+#screen-value {
+	color: #ffffff;
+	font-size: 100px;
+	text-align: right;
 }
 
 .keys {
-	display: flex;
-	flex: 1;
-	padding: 10px;
-}
-.num-key, .operator {
-	font-size: 40px;
-	height: 70px;
-	width: 70px;
-}
-
-.numpad {
 	align-items: center;
-	display: flex;
-	flex-wrap: wrap;
-	flex: 3;
-	gap: 10px;
 	justify-content: center;
-}
-.num-key{
-	color: #176B87;
-	padding: 10px;
-	text-align: center;
+	display: flex;
+	flex-flow: row wrap;
+	flex: 2;
+	gap: 10px;
 }
 
-.operators {
-	padding: 10px 0;
-	align-items: center;
-	display: flex;
-	flex-wrap: wrap;
-	flex: 1;
-	gap: 10px;
-	justify-content: center;
-}
-.operator{
-	background-color: #053B50;
-	color: #64CCC5;
-	padding: 10px;
-	text-align: center;
+#zero-key {
+	height: 90px;
+	width: 190px;
 }
 
-.enter {
-	display: flex;
-	flex: 1;
-	padding: 10px 0;
+#zero-key:active, #zero-key:focus {
+	height: 85px;
+	width: 185px;
+	margin: 2.5px;
 }
-.enter-key{
-	background-color: #053B50;
-	color: #EEEEEE;
-	font-size: 40px;
-	flex: 1;
+
+.top-row {
+	color: #000000;
+	background-color: #a5a5a5;
 }
+
+.top-row:active, .top-row:focus {
+	background-color: #d9d9d9;
+}
+
+.right-column {
+	background-color: #f1a23b;
+}
+
+.right-column:active, .right-column:focus {
+	color: #f1a23b;
+	background-color: #ffffff;
+}
+
 
 @media (max-width: 800px) {
   .case {
@@ -117,13 +113,23 @@ button {
   	width: 250px;
   }
 
-  .screen > input {
-  	font-size: 20px;
+  #screen-value {
+  	font-size: 50px;
   }
 
-  .num-key, .operator {
-  	font-size: 30px;
+  .keys {
+  	gap: 10px;
+  }
+
+  button {
+  	font-size: 20px;
   	height: 50px;
   	width: 50px;
   }
+
+  #zero-key {
+  	height: 50px;
+  	width: 110px;
+  }
+
 }

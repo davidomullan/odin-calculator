@@ -1,4 +1,10 @@
-// Once page loads
+// GLOBAL VARIABLES
+let operand1 = '';
+let operand2 = '';
+let operator = '';
+let on1 = true;
+
+// Once page loads - add eventlisteners
 window.addEventListener("load", (event) => {
   let numKeys = document.querySelectorAll('.num-key')
   let numArray = [...numKeys];
@@ -15,7 +21,7 @@ window.addEventListener("load", (event) => {
   operatorArray.forEach(operatorKey => {
   	operatorKey.addEventListener("click",
   		function() {
-  			pressOperatorKey(operatorKey.innerText);
+  			pressOperatorKey(operatorKey.value);
   		}
   	);
   });
@@ -31,35 +37,79 @@ window.addEventListener("load", (event) => {
   		evaluate();
   	}
   );
+
+  document.querySelector('.percentage-key').addEventListener('click',
+  	function(){
+  		percentage();
+  	}
+  );
 });
 
 // On key press, add number to screen
 function pressNumKey(number){
-	if(document.querySelector('#screenField').value==0){
-		document.querySelector('#screenField').value=number;
+	let screenValue = document.querySelector('#screen-value');
+	if(screenValue.innerText=='0'){
+		screenValue.innerText=number;
 	}
 	else{
-		document.querySelector('#screenField').value+=number;
+		screenValue.innerText+=number;
+	}
+
+	if(on1){
+		operand1+=number;
+		console.log(operand1);
+	}
+	else{
+		operand2+=number;
+		console.log(operand2);
 	}
 }
 
 // On key press, add number to screen
-function pressOperatorKey(operator){
-	document.querySelector('#screenField').value+=operator;
+function pressOperatorKey(operatorkey){
+	if(!on1){
+		evaluate();
+	}
+	on1=false;
+	operator=operatorkey;
+	document.querySelector('#screen-value').innerText='';
 }
 
 // Clear screen
 function clearScreen(){
-	document.querySelector('#screenField').value = 0;
+	document.querySelector('#screen-value').innerText='0';
+	resetGlobals();
 }
 
 function evaluate(){
-	let operand1 = parseInt(document.querySelector('#screenField').value[0]);
-	let operator = document.querySelector('#screenField').value[1];
-	let operand2 = parseInt(document.querySelector('#screenField').value[2]);
-	let result = operate(operand1, operator, operand2);
-	document.querySelector('#screenField').value = result;
+	let result = operate(Number(operand1), operator, Number(operand2));
+	resetGlobals();
+	document.querySelector('#screen-value').innerText=result;
+	operand1=result;
 }
+
+function percentage(){
+	if(operand1 && !operator){
+		operator='/';
+		operand2='100';
+		evaluate();
+	}
+	else if(operator){
+		operand2 = operate(operand1, '/', operand2);
+		evaluate();
+	}
+}
+
+function resetGlobals(){
+	operand1 = '';
+	operand2 = '';
+	operator = '';
+	on1 = true;
+}
+
+// 
+// MATH FUNCTIONS
+// 
 
 // Division function
 function divide(a, b){
@@ -71,7 +121,7 @@ function multiply(a, b) {
 	return Math.round(a*b);
 }
 
-function substract(a, b){
+function subtract(a, b){
 	return a-b;
 }
 
@@ -80,10 +130,15 @@ function add(a, b){
 	return a+b;
 }
 
-// Evaluates two operands and an operator
+// Evaluates two operands with an operator
 function operate(operand1, operator, operand2){
 	if(!operator){
-		return NaN;
+		if(operand1){
+			return operand1;
+		}
+		else{
+			return 0;
+		}
 	}
 	else{
 		if(operator=='/'){

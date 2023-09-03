@@ -11,32 +11,32 @@
 	<div class="content">
 		<div class="case">
 			<div class="screen">
-				<input type="text" name="screenName" id="screenField" value="1+2">
-			</div>
-			<div class="clear">
-				<button class="clear-key">clear</button>
+				<p id="screen-value">0</p>
 			</div>
 			<div class="keys">
-				<div class="numpad">
-					<button class="num-key" id="one-key">1</button>
-					<button class="num-key" id="two-key">2</button>
-					<button class="num-key" id="three-key">3</button>
-					<button class="num-key" id="four-key">4</button>
-					<button class="num-key" id="five-key">5</button>
-					<button class="num-key" id="six-key">6</button>
-					<button class="num-key" id="seven-key">7</button>
-					<button class="num-key" id="eight-key">8</button>
-					<button class="num-key" id="nine-key">9</button>
-				</div>
-				<div class="operators">
-					<button class="operator" id="divide-key">/</button>
-					<button class="operator" id="multiply-key">*</button>
-					<button class="operator" id="minus-key">-</button>
-					<button class="operator" id="plus-key">+</button>
-				</div>
-			</div>
-			<div class="enter">
-				<button class="enter-key">enter</button>
+				<button class="clear-key top-row">AC</button>
+				<button class="toggle-sign-key top-row">&#8314;&#8725;&#8331;</button>
+				<button class="percentage-key top-row">%</button>
+				<button class="operator right-column" id="divide-key" value="/">÷</button>
+
+				<button class="num-key" id="seven-key">7</button>
+				<button class="num-key" id="eight-key">8</button>
+				<button class="num-key" id="nine-key">9</button>
+				<button class="operator right-column" id="multiply-key" value="*">×</button>
+
+				<button class="num-key" id="four-key">4</button>
+				<button class="num-key" id="five-key">5</button>
+				<button class="num-key" id="six-key">6</button>
+				<button class="operator right-column" id="minus-key" value="-">−</button>
+
+				<button class="num-key" id="one-key">1</button>
+				<button class="num-key" id="two-key">2</button>
+				<button class="num-key" id="three-key">3</button>
+				<button class="operator right-column" id="plus-key" value="+">+</button>
+
+				<button class="num-key" id="zero-key">0</button>
+				<button class="decimal-key">.</button>
+				<button class="enter-key right-column">=</button>
 			</div>
 		</div>
 	</div>
