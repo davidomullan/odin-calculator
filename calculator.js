@@ -77,7 +77,7 @@ function pressNumKey(number){
 
 // On key press, add number to screen
 function pressOperatorKey(operatorkey){
-	if(operator){
+	if(operator && !operand2){
 		on1=false;
 		operator=operatorkey;
 	}
