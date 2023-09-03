@@ -65,11 +65,9 @@ function pressNumKey(number){
 
 	if(on1){
 		operand1+=number;
-		console.log(operand1);
 	}
 	else{
 		operand2+=number;
-		console.log(operand2);
 	}
 
 	checkOverflow();
@@ -112,7 +110,7 @@ function percentage(){
 		operand2='100';
 		evaluate();
 	}
-	else if(operator){
+	else if(operator && operand2){
 		operand2 = operate(operand1, '/', operand2);
 		evaluate();
 	}
@@ -152,12 +150,9 @@ function isOverflown(element, container) {
 }
 
 function checkOverflow(){
-	console.log("checkOverflow");
 	let screen = document.getElementById('screen-value');
 	let container = document.querySelector('.screen');
-	console.log(screen);
 	let fontSize = parseInt(screen.style.fontSize);
-	console.log(fontSize);
 	for (let i = fontSize; i >= 0; i--) {
 	    let overflow = isOverflown(screen, container);
 	    if (overflow) {
@@ -173,12 +168,12 @@ function checkOverflow(){
 
 // Division function
 function divide(a, b){
-	return Math.round(a/b);
+	return a/b;
 }
 
 // Multiplication function
 function multiply(a, b) {
-	return Math.round(a*b);
+	return a*b;
 }
 
 function subtract(a, b){
