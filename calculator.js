@@ -49,6 +49,8 @@ window.addEventListener("load", (event) => {
   		changeSign();
   	}
   );
+
+  resetGlobals();
 });
 
 // On key press, add number to screen
@@ -69,6 +71,8 @@ function pressNumKey(number){
 		operand2+=number;
 		console.log(operand2);
 	}
+
+	checkOverflow();
 }
 
 // On key press, add number to screen
@@ -98,6 +102,8 @@ function evaluate(){
 	resetGlobals();
 	document.querySelector('#screen-value').innerText=result;
 	operand1=result;
+
+	checkOverflow();
 }
 
 function percentage(){
@@ -138,6 +144,27 @@ function resetGlobals(){
 	operand2 = '';
 	operator = '';
 	on1 = true;
+	document.getElementById('screen-value').style.fontSize = '100px';
+}
+
+function isOverflown(element, container) {
+    return element.scrollHeight > (container.scrollHeight - 40) || element.scrollWidth > (container.scrollWidth - 40);
+}
+
+function checkOverflow(){
+	console.log("checkOverflow");
+	let screen = document.getElementById('screen-value');
+	let container = document.querySelector('.screen');
+	console.log(screen);
+	let fontSize = parseInt(screen.style.fontSize);
+	console.log(fontSize);
+	for (let i = fontSize; i >= 0; i--) {
+	    let overflow = isOverflown(screen, container);
+	    if (overflow) {
+	     fontSize--;
+	     screen.style.fontSize = fontSize + "px";
+	    }
+	}
 }
 
 // 

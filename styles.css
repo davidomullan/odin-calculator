@@ -66,6 +66,10 @@ button:hover {
 	color: #ffffff;
 	font-size: 100px;
 	text-align: right;
+/*	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: clip;
+	direction: rtl;*/
 }
 
 .keys {
