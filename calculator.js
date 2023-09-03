@@ -3,6 +3,7 @@ let operand1 = '';
 let operand2 = '';
 let operator = '';
 let on1 = true;
+let hasDecimal = false;
 
 // Once page loads - add eventlisteners
 window.addEventListener("load", (event) => {
@@ -50,6 +51,12 @@ window.addEventListener("load", (event) => {
   	}
   );
 
+  document.querySelector('.decimal-key').addEventListener('click',
+  	function(){
+  		addDecimal();
+  	}
+  );
+
   resetGlobals();
 });
 
@@ -77,6 +84,7 @@ function pressNumKey(number){
 function pressOperatorKey(operatorkey){
 	if(operator && !operand2){
 		on1=false;
+		hasDecimal=false;
 		operator=operatorkey;
 	}
 	else{
@@ -84,6 +92,7 @@ function pressOperatorKey(operatorkey){
 			evaluate();
 		}
 		on1=false;
+		hasDecimal=false;
 		operator=operatorkey;
 		document.querySelector('#screen-value').innerText='';
 	}
@@ -100,7 +109,9 @@ function evaluate(){
 	resetGlobals();
 	document.querySelector('#screen-value').innerText=result;
 	operand1=result;
-
+	if(operand1.toString().includes('.')){
+		hasDecimal=true;
+	}
 	checkOverflow();
 }
 
@@ -118,8 +129,8 @@ function percentage(){
 
 function changeSign() {
 	if(on1){
-		if(operand1[0]=='-'){
-			operand1 = operand1.substring(1);
+		if(operand1.toString()[0]=='-'){
+			operand1 = operand1.toString().substring(1);
 		}
 		else{
 			operand1 = '-' + operand1;
@@ -137,11 +148,26 @@ function changeSign() {
 	}
 }
 
+function addDecimal() {
+	if(!hasDecimal){
+		if(on1){
+			operand1+='.';
+			document.querySelector('#screen-value').innerText = operand1;
+		}
+		else{
+			operand2+='.';
+			document.querySelector('#screen-value').innerText = operand2;
+		}
+		hasDecimal=true;
+	}
+}
+
 function resetGlobals(){
 	operand1 = '';
 	operand2 = '';
 	operator = '';
 	on1 = true;
+	hasDecimal = false;
 	document.getElementById('screen-value').style.fontSize = '100px';
 }
 
@@ -168,6 +194,9 @@ function checkOverflow(){
 
 // Division function
 function divide(a, b){
+	if(a=='0' && b=='0'){
+		return 0;
+	}
 	return a/b;
 }
 
