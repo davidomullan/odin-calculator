@@ -9,7 +9,7 @@
 - [x] Implement &#8314;&#8725;&#8331; button (toggles sign on current operand)
 - [x] Stylize (mock iOS calculator app)
 - [x] Reduce font-size on overflow of screen
-- [ ] Support for decimal values (and decimal key)
+- [X] Support for decimal values (and decimal key)
 	- Currently rounds for fractions; decimal button not implemented. (Affects % button and division);
 
 ![Image of Calculator App](images/calculator.png)
