@@ -10,6 +10,5 @@
 - [x] Stylize (mock iOS calculator app)
 - [x] Reduce font-size on overflow of screen
 - [X] Support for decimal values (and decimal key)
-	- Currently rounds for fractions; decimal button not implemented. (Affects % button and division);
 
 ![Image of Calculator App](images/calculator.png)
