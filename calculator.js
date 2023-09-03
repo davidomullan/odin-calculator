@@ -73,12 +73,18 @@ function pressNumKey(number){
 
 // On key press, add number to screen
 function pressOperatorKey(operatorkey){
-	if(!on1){
-		evaluate();
+	if(operator){
+		on1=false;
+		operator=operatorkey;
 	}
-	on1=false;
-	operator=operatorkey;
-	document.querySelector('#screen-value').innerText='';
+	else{
+		if(!on1){
+			evaluate();
+		}
+		on1=false;
+		operator=operatorkey;
+		document.querySelector('#screen-value').innerText='';
+	}
 }
 
 // Clear screen
