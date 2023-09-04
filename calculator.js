@@ -63,18 +63,26 @@ window.addEventListener("load", (event) => {
 // On key press, add number to screen
 function pressNumKey(number){
 	let screenValue = document.querySelector('#screen-value');
+	if (screenValue.innerText.replace(/[^0-9]/g,"").length >= 9){
+		return;
+	}
 	if(screenValue.innerText=='0'){
 		screenValue.innerText=number;
+		if(on1){
+			operand1=number;
+		}
+		else{
+			operand2=number;
+		}
 	}
 	else{
 		screenValue.innerText+=number;
-	}
-
-	if(on1){
-		operand1+=number;
-	}
-	else{
-		operand2+=number;
+		if(on1){
+			operand1+=number;
+		}
+		else{
+			operand2+=number;
+		}
 	}
 
 	checkOverflow();
@@ -108,12 +116,44 @@ function clearScreen(){
 function evaluate(){
 	let result = operate(Number(operand1), operator, Number(operand2));
 	resetGlobals();
-	document.querySelector('#screen-value').innerText=result;
 	operand1=result;
+	result = displayValue(result);
+	document.querySelector('#screen-value').innerText=result;
 	if(operand1.toString().includes('.')){
 		hasDecimal=true;
 	}
 	checkOverflow();
+}
+
+function displayValue(number){
+	let numberPreDecimal = number.toFixed(0).toString();
+	if(number - Math.floor(number) == 0 && numberPreDecimal.length <= 9){
+		console.log('number - Math.floor(number) == 0 && numberPreDecimal.length <= 9');
+		return number;
+	}
+	else if(numberPreDecimal.replace(/[^0-9]/g,"").length > 9){
+		console.log('numberPreDecimal.replace(/[^0-9]/g,"").length > 9');
+		return parseFloat(numberPreDecimal).toExponential(5);
+	}
+	else if(numberPreDecimal.replace(/[^0-9]/g,"").length <= 9 && numberPreDecimal.replace(/[^0-9]/g,"").length > 1){
+		console.log('numberPreDecimal.replace(/[^0-9]/g,"").length <= 9 && numberPreDecimal.replace(/[^0-9]/g,"").length > 1');
+		return `${1 * number.toFixed(9-(numberPreDecimal.replace(/[^0-9]/g,"").length))}`;
+	}
+	else if(numberPreDecimal.replace(/[^0-9]/g,"").length == 1 && (number >= 0.00000001 || (numberPreDecimal[0]=='-' && number <= -0.00000001))){
+		console.log('numberPreDecimal.replace(/[^0-9]/g,"").length == 1 && (number >= 0.00000001 || (numberPreDecimal[0]==\'-\' && number <= -0.00000001))');
+		console.log(number.toString()[number.toString().length-1]);
+		if(number.toString().replace(/[^0-9]/g,"").length<=9){
+			console.log(`${1 * number.toFixed(8)}`)
+			return `${1 * number.toFixed(8)}`;
+		}
+		else{
+			return number.toFixed(8);
+		}
+	}
+	else if(numberPreDecimal.replace(/[^0-9]/g,"").length == 1 && number < 0.00000001){
+		console.log('numberPreDecimal.replace(/[^0-9]/g,"").length == 1 && number < 0.00000001');
+		return parseFloat(number).toExponential(5);
+	}
 }
 
 function percentage(){
@@ -138,7 +178,8 @@ function changeSign() {
 		else{
 			operand1 = '-' + operand1;
 		}
-		document.querySelector('#screen-value').innerText = operand1;
+
+		document.querySelector('#screen-value').innerText = displayValue(parseFloat(operand1));
 	}
 	else{
 		if(operand2[0]=='-'){
@@ -147,13 +188,18 @@ function changeSign() {
 		else{
 			operand2 = '-' + operand2;
 		}
-		document.querySelector('#screen-value').innerText = operand2;
+		document.querySelector('#screen-value').innerText = displayValue(parseFloat(operand2));
 	}
 
+	document.getElementById('screen-value').style.fontSize = '100px';
 	checkOverflow();
 }
 
 function addDecimal() {
+	let screenValue = document.querySelector('#screen-value');
+	if (screenValue.innerText.replace(/[^0-9]/g,"").length >= 9){
+		return;
+	}
 	if(!hasDecimal){
 		if(on1){
 			operand1+='.';
@@ -178,7 +224,7 @@ function resetGlobals(){
 }
 
 function isOverflown(element, container) {
-    return element.scrollHeight > (container.scrollHeight - 40) || element.scrollWidth > (container.scrollWidth - 40);
+    return element.scrollHeight > (container.scrollHeight - 45) || element.scrollWidth > (container.scrollWidth - 45);
 }
 
 function checkOverflow(){
@@ -188,8 +234,8 @@ function checkOverflow(){
 	for (let i = fontSize; i >= 0; i--) {
 	    let overflow = isOverflown(screen, container);
 	    if (overflow) {
-	     fontSize--;
-	     screen.style.fontSize = fontSize + "px";
+	    	fontSize--;
+	    	screen.style.fontSize = fontSize + "px";
 	    }
 	}
 }
