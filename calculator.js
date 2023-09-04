@@ -126,33 +126,27 @@ function evaluate(){
 }
 
 function displayValue(number){
+	number = parseFloat(number.toPrecision(9));
 	let numberPreDecimal = number.toFixed(0).toString();
+
+	// Has no decimal and is 9 digits or less (display number)
 	if(number - Math.floor(number) == 0 && numberPreDecimal.length <= 9){
-		console.log('number - Math.floor(number) == 0 && numberPreDecimal.length <= 9');
 		return number;
 	}
+	// If number has greater than 9 digits left of decimal (display exponential with 5 decimals)
 	else if(numberPreDecimal.replace(/[^0-9]/g,"").length > 9){
-		console.log('numberPreDecimal.replace(/[^0-9]/g,"").length > 9');
-		return parseFloat(numberPreDecimal).toExponential(5);
+		return number.toExponential(5);
 	}
+	// If number has less than 9 digits pre-decimal but greater than 1 (display pre-decimal digits and remaining from 9 of post decimal)
 	else if(numberPreDecimal.replace(/[^0-9]/g,"").length <= 9 && numberPreDecimal.replace(/[^0-9]/g,"").length > 1){
-		console.log('numberPreDecimal.replace(/[^0-9]/g,"").length <= 9 && numberPreDecimal.replace(/[^0-9]/g,"").length > 1');
 		return `${1 * number.toFixed(9-(numberPreDecimal.replace(/[^0-9]/g,"").length))}`;
 	}
+	// If number has one digit predecimal
 	else if(numberPreDecimal.replace(/[^0-9]/g,"").length == 1 && (number >= 0.00000001 || (numberPreDecimal[0]=='-' && number <= -0.00000001))){
-		console.log('numberPreDecimal.replace(/[^0-9]/g,"").length == 1 && (number >= 0.00000001 || (numberPreDecimal[0]==\'-\' && number <= -0.00000001))');
-		console.log(number.toString()[number.toString().length-1]);
-		if(number.toString().replace(/[^0-9]/g,"").length<=9){
-			console.log(`${1 * number.toFixed(8)}`)
-			return `${1 * number.toFixed(8)}`;
-		}
-		else{
-			return number.toFixed(8);
-		}
+		return `${1 * number.toFixed(8)}`;
 	}
 	else if(numberPreDecimal.replace(/[^0-9]/g,"").length == 1 && number < 0.00000001){
-		console.log('numberPreDecimal.replace(/[^0-9]/g,"").length == 1 && number < 0.00000001');
-		return parseFloat(number).toExponential(5);
+		return parseFloat(number.toExponential(5));
 	}
 }
 
@@ -175,22 +169,56 @@ function changeSign() {
 		if(operand1.toString()[0]=='-'){
 			operand1 = operand1.toString().substring(1);
 		}
+		else if(operand1.toString()=='' || operand1.toString()=='0'){
+			operand1 = '-';
+		}
 		else{
 			operand1 = '-' + operand1;
 		}
 
-		document.querySelector('#screen-value').innerText = displayValue(parseFloat(operand1));
+		if(operand1=='-'){
+			document.querySelector('#screen-value').innerText = '-';
+		}
+		else if(operand1==''){
+			document.querySelector('#screen-value').innerText = '';
+		}
+		else if(operand1=='-.'){
+			document.querySelector('#screen-value').innerText = '-.';
+		}
+		else if(operand1=='.'){
+			document.querySelector('#screen-value').innerText = '.';
+		}
+		else{
+			document.querySelector('#screen-value').innerText = displayValue(parseFloat(operand1));
+		}
 	}
 	else{
-		if(operand2[0]=='-'){
-			operand2=operand2.substring(1);
+		if(operand2.toString()[0]=='-'){
+			operand2 = operand2.toString().substring(1);
+		}
+		else if(operand2.toString()=='' || operand2.toString()=='0'){
+			operand2 = '-';
 		}
 		else{
 			operand2 = '-' + operand2;
 		}
-		document.querySelector('#screen-value').innerText = displayValue(parseFloat(operand2));
-	}
 
+		if(operand2=='-'){
+			document.querySelector('#screen-value').innerText = '-';
+		}
+		else if(operand2==''){
+			document.querySelector('#screen-value').innerText = '';
+		}
+		else if(operand2=='-.'){
+			document.querySelector('#screen-value').innerText = '-.';
+		}
+		else if(operand2=='.'){
+			document.querySelector('#screen-value').innerText = '.';
+		}
+		else{
+			document.querySelector('#screen-value').innerText = displayValue(parseFloat(operand2));
+		}
+	}
 	document.getElementById('screen-value').style.fontSize = '100px';
 	checkOverflow();
 }
@@ -278,6 +306,7 @@ function operate(operand1, operator, operand2){
 	}
 	else{
 		if(operator=='/'){
+			console.log('divide result: ' + divide(operand1, operand2));
 			return divide(operand1, operand2);
 		}
 		else if(operator=='*'){
